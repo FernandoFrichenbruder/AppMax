@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth']], function (){
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
+        Route::resource('products', 'ProductController');
+        Route::resource('categories', 'CategoryController');
+        Route::resource('orders', 'OrderController');
+        Route::resource('customers', 'CustomerController');
+        Route::resource('adminstrators', 'AdministratorController');
+    });
+});
