@@ -51,7 +51,7 @@
     </nav>
 
     <div class="container" style="margin-top: 3rem;">
-
+        @include('flash::message')
         @yield('content')
     </div>
 

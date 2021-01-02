@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 
 
 class ProductController extends Controller
@@ -52,7 +53,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $data = $request->all();
 
@@ -65,8 +66,7 @@ class ProductController extends Controller
             'stock' => $data['stock'],
         ]);
 
-        //flash('Produto Criado com Sucesso');
-        
+        flash('Produto Criado com Sucesso');        
         return redirect()->route('admin.products.index');
     }
 
@@ -102,7 +102,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $data = $request->all();
 
@@ -116,6 +116,7 @@ class ProductController extends Controller
             'stock' => $data['stock'],
         ]);
 
+        flash('Produto Atualizado com Sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
 
@@ -131,6 +132,7 @@ class ProductController extends Controller
         $product->categories()->detach();
         $product->delete();
 
+        flash('Produto Removido com Sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
 }
