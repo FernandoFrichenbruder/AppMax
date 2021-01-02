@@ -22,6 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function (){
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
         Route::resource('products', 'ProductController');
+        Route::resource('skus', 'SkuController');
         Route::resource('categories', 'CategoryController');
         Route::resource('orders', 'OrderController');
         Route::resource('customers', 'CustomerController');

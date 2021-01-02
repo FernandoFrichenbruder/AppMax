@@ -34,6 +34,6 @@ class Product extends Model
      */
     public function skus()
     {
-        return $this->hasMany(Sku::class);
+        return $this->hasOne(Sku::class);
     }
 }
