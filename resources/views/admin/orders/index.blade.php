@@ -9,7 +9,7 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Quantidade Itens</th>
+            <th>Quantidade de Produtos</th>
             <th>Ativo</th>
             <th>Ações</th>
         </tr>
