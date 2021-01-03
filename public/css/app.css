@@ -10933,3 +10933,9 @@ td.actions div {
   display: none;
 }
 
+.amount {
+  width: 315px;
+  display: flex;
+  justify-content: space-between;
+}
+

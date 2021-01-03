@@ -22,6 +22,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function (){
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
         Route::resource('products', 'ProductController');
+        Route::prefix('products')->name('products.')->group(function(){
+            Route::post('/add', 'ProductController@add')->name('add');
+            Route::post('/remove', 'ProductController@remove')->name('remove');
+        });
         Route::resource('skus', 'SkuController');
         Route::resource('categories', 'CategoryController');
         Route::resource('orders', 'OrderController');

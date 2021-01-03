@@ -9,7 +9,8 @@
                 <th>Nome</th>
                 <th>SKU</th>
                 <th>Preço</th>
-                <th>Estoque</th>
+                <th>Quantidade</th>
+                <th style="text-align: center; width: 315px;">Movimentar Estoque</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -21,6 +22,21 @@
                     <td>{{$product->skus->sku}}</td>
                     <td>{{$product->skus->price}}</td>
                     <td>{{$product->skus->stock}}</td>
+                    <td class="amount">
+                        <form action="{{route('admin.products.add')}}" method="post" class="addItems">
+                            @csrf
+                            <input type="number" name="quantity" max="{{$product->skus->stock}}" class="form-control quantity" />
+                            <input type="hidden" name="sku_id" value="{{$product->skus->id}}">
+                            <button type="submit" class="btn btn-sm btn-success addItem">+</button>
+                        </form>
+
+                        <form action="{{route('admin.products.remove')}}" method="post" class="addItems">
+                            @csrf
+                            <input type="number" name="quantity" max="{{$product->skus->stock}}" class="form-control quantity" />
+                            <input type="hidden" name="sku_id" value="{{$product->skus->id}}">
+                            <button type="submit" class="btn btn-sm btn-danger addItem">-</button>
+                        </form>
+                    </td>
                     <td class="actions">
                         <div class="btn-group">
                             <a href="{{route('admin.products.edit', ['product' => $product->id])}}" class="btn btn-sm btn-primary">Editar</a>

@@ -28,12 +28,40 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('skus')->paginate(10);
-        // $products = Product::paginate(10);
         return view('admin.products.index', compact('products'));
-        
-
-        //return $products;
     }
+
+    /**
+     * Update SKU amount
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function add(Request $request)
+    {
+        $data = $request->all();
+        $data['quantity'] = $data['quantity'] * -1;
+        $sku = \App\Models\Sku::updateAmount($data);
+
+        flash('Produto adicionado com Sucesso!')->success();
+        return redirect()->route('admin.products.index');
+    }
+
+    /**
+     * Update SKU amount
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function remove(Request $request)
+    {
+        $data = $request->all();
+        $sku = \App\Models\Sku::updateAmount($data);
+
+        flash('Produto adicionado com Sucesso!')->success();
+        return redirect()->route('admin.products.index');
+    }
+
 
     /**
      * Show the form for creating a new resource.
