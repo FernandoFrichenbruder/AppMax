@@ -35,4 +35,14 @@ class Sku extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    /**
+     * Update SKU Quantity
+     */
+    public static function updateAmount($data)
+    {
+        $sku = Sku::find($data['sku_id']);
+        $sku->stock = $sku->stock - $data['quantity'];
+        $sku->save();
+    }
 }

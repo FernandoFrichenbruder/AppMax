@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class ItemController extends Controller
 {
+    private $item;
+
+    /**
+     * Instantiate a new Itemontroller instance.
+     */
+    public function __construct(Item $item)
+    {
+        $this->item = $item;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +45,15 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $item = Item::saveOrUpdate($data);
+
+        $sku = \App\Models\Sku::updateAmount($data);
+
+        
+
+        flash('Produto adicionado com Sucesso!')->success();
+        return redirect()->route('admin.orders.populate', [$data['order_id']]);
     }
 
     /**

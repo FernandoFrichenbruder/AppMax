@@ -6,3 +6,32 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+td.actions div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.index th:last-child, .index td.actions {
+    text-align: center;
+    width: 200px;
+}
+
+.addItems {
+    width: 170px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.addItems input {
+    width: 85px;
+}
+
+.addItem {
+    width: 35px;
+}
+
+.addedItems {
+    display: none;
+}

@@ -4,9 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Helpers\OrderHelper;
 
 class OrderController extends Controller
 {
+    private $order;
+
+    /**
+     * Instantiate a new OrderController instance.
+     */
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with(['items'])->paginate(10);
+        return view('admin.orders.index', compact('orders'));
+
     }
 
     /**
@@ -24,7 +38,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $users = \App\Models\User::all(['id', 'name']);
+        return view('admin.orders.create', compact('users'));
     }
 
     /**
@@ -35,7 +50,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $order = $this->order->create($data);
+
+        flash('Pedido aberto! Adicione os produtos no pedido.');
+        return redirect()->route('admin.orders.index');
+
     }
 
     /**
@@ -46,7 +66,28 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $orderSingle = $this->order->with(['items'])->findOrFail($id);
+        $completeOrder = Order::getCompleteOrder($id);
+        
+        $order = new OrderHelper($orderSingle, $completeOrder);
+        return view('admin.orders.show', compact('order'));
+    }
+
+    /**
+     * Show the form for add items to an order.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function additems($id)
+    {
+        $users = \App\Models\User::all(['id', 'name']);
+        $products = \App\Models\Product::with('skus')->get();
+        $orderSingle = $this->order->with(['items'])->findOrFail($id);
+        $completeOrder = Order::getCompleteOrder($id);
+        
+        $order = new OrderHelper($orderSingle, $completeOrder);
+
+        return view('admin.orders.additems', compact('users', 'products', 'order'));
     }
 
     /**

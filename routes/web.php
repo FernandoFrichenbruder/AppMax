@@ -25,6 +25,12 @@ Route::group(['middleware' => ['auth']], function (){
         Route::resource('skus', 'SkuController');
         Route::resource('categories', 'CategoryController');
         Route::resource('orders', 'OrderController');
+        Route::prefix('orders')->name('orders.')->group(function(){
+            Route::get('/{order}/populate', 'OrderController@additems')->name('populate');
+        });
+        Route::prefix('items')->name('items.')->group(function(){
+            Route::post('/store', 'ItemController@store')->name('store');
+        });
         Route::resource('customers', 'CustomerController');
         Route::resource('adminstrators', 'AdministratorController');
     });
