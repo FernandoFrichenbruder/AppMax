@@ -44,5 +44,7 @@ class Sku extends Model
         $sku = Sku::find($data['sku_id']);
         $sku->stock = $sku->stock - $data['quantity'];
         $sku->save();
+
+        return $sku;
     }
 }

@@ -25,8 +25,6 @@ class AlterTableSkusUniqueSku extends Migration
      */
     public function down()
     {
-        Schema::table('skus', function(Blueprint $table) {
-            $table->dropUnique('sku');
-        });
+        
     }
 }

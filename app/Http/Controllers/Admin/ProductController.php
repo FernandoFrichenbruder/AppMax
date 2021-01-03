@@ -31,6 +31,13 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
+    public function apindex()
+    {
+        $products = Product::with('skus')->paginate(10);
+        return $products;
+    }
+
+
     /**
      * Update SKU amount
      *

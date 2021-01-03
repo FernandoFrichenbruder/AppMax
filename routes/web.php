@@ -39,5 +39,4 @@ Route::group(['middleware' => ['auth']], function (){
         Route::resource('adminstrators', 'AdministratorController');
     });
 });
-
 Auth::routes();
