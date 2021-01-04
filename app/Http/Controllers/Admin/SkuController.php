@@ -49,8 +49,6 @@ class SkuController extends Controller
             'action' => 'Baixa rápida pela listagem de Produtos',
             'quantity' => $data['quantity'] * -1,
             'trigger' => 'Site',
-            'order_id' => $data['order_id'],
-            'user_id' => $data['user_id'],
         ]);
 
         flash('Quantidade reduzida com Sucesso!')->success();
