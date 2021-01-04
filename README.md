@@ -1,7 +1,7 @@
 # AppMax
 ### CRUD Laravel para Produtos, Estoque, Pedidos e Relatórios
 
-##### Para instalar o projeto você vai precisar do [Composer][https://getcomposer.org/download/], o Laravel Installer e uma base de dados MySQL
+##### Para instalar o projeto você vai precisar do [Composer](https://getcomposer.org/download/), o Laravel Installer e uma base de dados MySQL
 ##### Com o composer instalado: 
 
 ```
@@ -40,7 +40,7 @@ php artisan serve
 ### Por comodidade, já existe um usuário cadastrado! 
 - e-mail: fernando.frich@gmail.com
 - senha: password
-### Ou você pode criar um novo usuário em [register][http://127.0.0.1:8000/register]
+### Ou você pode criar um novo usuário em [register](http://127.0.0.1:8000/register)
 
 ### Após logado você será redirecionado para a tela de Produtos e poderá navegar pelo sistema.
 
@@ -48,6 +48,6 @@ php artisan serve
 #API
 ### A API está protegida por autenticação, necessidando logar pelo endpoint **http://127.0.0.1:8000/api/login**
 ### Este endpoint irá retornar o token de autenticação necessário para acessar os outros dois endpoints da aplicação
--**http://127.0.0.1:8000/api/baixar-produtos**
--**http://127.0.0.1:8000/api/remover-produtos**
+- **http://127.0.0.1:8000/api/baixar-produtos**
+- **http://127.0.0.1:8000/api/remover-produtos**
 
