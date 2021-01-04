@@ -27,7 +27,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('skus')->paginate(10);
+        //$products = Product::with('skus')->paginate(10);
+        $products = Product::all();
+        dd($products);
         return view('admin.products.index', compact('products'));
     }
 
