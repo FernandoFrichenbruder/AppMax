@@ -35,3 +35,19 @@ php artisan migrate --seed
 ```
 php artisan serve
 ```
+
+### Ao acessar o projeto em http://127.0.0.1:8000 você poderá fazer o login ou registrar um usuário.
+### Por comodidade, já existe um usuário cadastrado! 
+- e-mail: fernando.frich@gmail.com
+- senha: password
+### Ou você pode criar um novo usuário em [register][http://127.0.0.1:8000/register]
+
+### Após logado você será redirecionado para a tela de Produtos e poderá navegar pelo sistema.
+
+
+#API
+### A API está protegida por autenticação, necessidando logar pelo endpoint **http://127.0.0.1:8000/api/login**
+### Este endpoint irá retornar o token de autenticação necessário para acessar os outros dois endpoints da aplicação
+-**http://127.0.0.1:8000/api/baixar-produtos**
+-**http://127.0.0.1:8000/api/remover-produtos**
+
