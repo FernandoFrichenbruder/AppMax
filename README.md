@@ -2,6 +2,17 @@
 ### CRUD Laravel para Produtos, Estoque, Pedidos e Relatórios
 
 ##### Para instalar o projeto você vai precisar do [Composer](https://getcomposer.org/download/), o Laravel Installer e uma base de dados MySQL
+
+### Crie uma base de dados, renomeie o arquivo .env.example na raiz do projeto para .env e edite a conexão com o DB
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=appmax
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
 ##### Com o composer instalado: 
 
 ```
@@ -13,18 +24,11 @@ cd appmax
 
 composer install
 
+php artisan key:generate
+
 npm run dev
 ```
 
-### Crie uma base de dados e edite o arqivo .env na raiz do projeto
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=appmax
-DB_USERNAME=root
-DB_PASSWORD=
-```
 
 ### Com a base de dados conectada corretamente, rode as migrations e seeders
 ```
