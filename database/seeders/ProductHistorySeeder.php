@@ -20,6 +20,7 @@ class ProductHistorySeeder extends Seeder
                 'quantity' => 150,
                 'action' => 'Adicionado pelo Seeder',
                 'trigger' => 'Seeder',
+                'created_at' => now(),
             ]
         );
     }
