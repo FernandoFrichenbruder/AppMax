@@ -57,7 +57,7 @@ class ProductController extends Controller
         $data = $request->all();
 
         $product = Product::create($data);
-        $product->categories()->sync($data['categories']);
+
         $skuId = $product->skus()->create([
             'product_id' => $product->id,
             'sku' => $product->id . '-' . $product->name,
@@ -114,7 +114,6 @@ class ProductController extends Controller
 
         $product = $this->product->find($id);
         $product->update($data);
-        $product->categories()->sync($data['categories']);
 
         $sku = \App\Models\Sku::find($product->skus->id);
         $quantity = 0;
