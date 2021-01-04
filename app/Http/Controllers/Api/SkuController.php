@@ -17,8 +17,16 @@ class SkuController extends Controller
     public function add(Request $request)
     {
         $data = $request->all();
+        $quantity = $data['quantity'];
         $data['quantity'] = $data['quantity'] * -1;
         $sku = Sku::updateAmount($data);
+
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $sku->id,
+            'action' => 'Entrada pela API',
+            'quantity' => $quantity,
+            'trigger' => 'API',
+        ]);
 
         return ['success' => $sku];
     }
@@ -33,6 +41,13 @@ class SkuController extends Controller
     {
         $data = $request->all();
         $sku = \App\Models\Sku::updateAmount($data);
+
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $sku->id,
+            'action' => 'Baixa pela API',
+            'quantity' => $data['quantity'] * -1,
+            'trigger' => 'API',
+        ]);
 
         return ['success' => $sku];
     }

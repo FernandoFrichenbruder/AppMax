@@ -17,10 +17,20 @@ class SkuController extends Controller
     public function add(Request $request)
     {
         $data = $request->all();
+        $quantity = $data['quantity'];
         $data['quantity'] = $data['quantity'] * -1;
         $sku = Sku::updateAmount($data);
 
-        return ['success' => $sku];
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $sku->id,
+            'action' => 'Entrada rápida pela listagem de Produtos',
+            'quantity' => $quantity,
+            'trigger' => 'Site',
+        ]);
+
+
+        flash('Quantidade adicionada com Sucesso!')->success();
+        return redirect()->route($data['route']);
     }
 
     /**
@@ -34,6 +44,18 @@ class SkuController extends Controller
         $data = $request->all();
         $sku = \App\Models\Sku::updateAmount($data);
 
-        return ['success' => $sku];
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $sku->id,
+            'action' => 'Baixa rápida pela listagem de Produtos',
+            'quantity' => $data['quantity'] * -1,
+            'trigger' => 'Site',
+            'order_id' => $data['order_id'],
+            'user_id' => $data['user_id'],
+        ]);
+
+        flash('Quantidade reduzida com Sucesso!')->success();
+        return redirect()->route($data['route']);
     }
+
+    
 }

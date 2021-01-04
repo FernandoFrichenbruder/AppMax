@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsHistoryTable extends Migration
+class CreateProductHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateProductsHistoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_history', function (Blueprint $table) {
+        Schema::create('product_histories', function (Blueprint $table) {
             $table->id();
             $table->string('sku_id');//id do item movimentado
+            $table->integer('quantity');
             $table->string('action');//se foi criado, movimentado manualmente (+ ou -), feito pedido ou removido
             $table->string('trigger');//se veio do sistema ou API
             $table->bigInteger('order_id')->nullable();//guarda o pedido se a movimentação foi por pedido
@@ -31,6 +32,6 @@ class CreateProductsHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_history');
+        Schema::dropIfExists('product_histories');
     }
 }

@@ -23,17 +23,19 @@
                     <td>{{$product->skus->price}}</td>
                     <td>{{$product->skus->stock}}</td>
                     <td class="amount">
-                        <form action="{{route('admin.products.add')}}" method="post" class="addItems">
+                        <form action="{{route('admin.skus.add')}}" method="post" class="addItems">
                             @csrf
                             <input type="number" name="quantity" max="{{$product->skus->stock}}" class="form-control quantity" />
                             <input type="hidden" name="sku_id" value="{{$product->skus->id}}">
+                            <input type="hidden" name="route" value="admin.products.index">
                             <button type="submit" class="btn btn-sm btn-success addItem">+</button>
                         </form>
 
-                        <form action="{{route('admin.products.remove')}}" method="post" class="addItems">
+                        <form action="{{route('admin.skus.deduct')}}" method="post" class="addItems">
                             @csrf
                             <input type="number" name="quantity" max="{{$product->skus->stock}}" class="form-control quantity" />
                             <input type="hidden" name="sku_id" value="{{$product->skus->id}}">
+                            <input type="hidden" name="route" value="admin.products.index">
                             <button type="submit" class="btn btn-sm btn-danger addItem">-</button>
                         </form>
                     </td>

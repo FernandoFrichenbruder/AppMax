@@ -35,5 +35,4 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('/baixar-produtos', 'Api\SkuController@deduct')->name('deduct');
     Route::post('/adicionar-produtos', 'Api\SkuController@add')->name('add');
     Route::get('logout', 'Api\JwtAuthController@logout');
-    Route::get('products', 'Admin\ProductController@apindex');
 });

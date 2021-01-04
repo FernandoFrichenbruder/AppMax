@@ -17,25 +17,6 @@ class ItemController extends Controller
     {
         $this->item = $item;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -50,54 +31,17 @@ class ItemController extends Controller
 
         $sku = \App\Models\Sku::updateAmount($data);
 
-        
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $sku->id,
+            'action' => 'Adicionado em pedido',
+            'quantity' => $data['quantity'],
+            'trigger' => 'Site',
+            'order_id' => $data['order_id'],
+            'user_id' => $data['user_id'],
+        ]);
 
         flash('Produto adicionado com Sucesso!')->success();
         return redirect()->route('admin.orders.populate', [$data['order_id']]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

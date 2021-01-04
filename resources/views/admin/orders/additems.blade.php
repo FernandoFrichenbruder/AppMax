@@ -70,6 +70,7 @@
                             <input type="number" name="quantity" max="{{$product->skus->stock}}" class="form-control quantity" />
                             <input type="hidden" name="sku_id" value="{{$product->skus->id}}">
                             <input type="hidden" name="order_id" value="{{$order->id}}" />
+                            <input type="hidden" name="user_id" value="{{$order->user}}" />
                             <button type="submit" class="btn btn-sm btn-primary addItem">+</button>
                         </form>
                     </td>

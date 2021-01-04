@@ -80,14 +80,13 @@ class OrderController extends Controller
      */
     public function additems($id)
     {
-        $users = \App\Models\User::all(['id', 'name']);
         $products = \App\Models\Product::with('skus')->get();
         $orderSingle = $this->order->with(['items'])->findOrFail($id);
         $completeOrder = Order::getCompleteOrder($id);
         
-        $order = new OrderHelper($orderSingle, $completeOrder);
+        $order = new OrderHelper($orderSingle, $completeOrder);      
 
-        return view('admin.orders.additems', compact('users', 'products', 'order'));
+        return view('admin.orders.additems', compact('products', 'order'));
     }
 
     /**

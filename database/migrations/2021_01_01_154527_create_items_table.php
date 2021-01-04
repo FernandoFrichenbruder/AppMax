@@ -20,8 +20,8 @@ class CreateItemsTable extends Migration
             $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('sku_id')->references('id')->on('skus');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('sku_id')->references('id')->on('skus')->onDelete('cascade');
         });
     }
 

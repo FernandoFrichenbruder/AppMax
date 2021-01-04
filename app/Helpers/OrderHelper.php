@@ -28,10 +28,12 @@ class OrderHelper
     public function mergeOrders()
     {
         $this->id = $this->order->id;
+
         $this->active = $this->order->active;
         $this->items = [];
         $i = 0;
         foreach($this->completeOrder as $item){
+            $this->user = $item->user_id;
             $this->items[$i]['sku'] = $item->sku;
             $this->items[$i]['price'] = $item->price;
             $this->items[$i]['quantity'] = $item->quantity;

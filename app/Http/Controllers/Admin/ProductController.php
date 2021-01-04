@@ -31,43 +31,7 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    public function apindex()
-    {
-        $products = Product::with('skus')->paginate(10);
-        return $products;
-    }
 
-
-    /**
-     * Update SKU amount
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function add(Request $request)
-    {
-        $data = $request->all();
-        $data['quantity'] = $data['quantity'] * -1;
-        $sku = \App\Models\Sku::updateAmount($data);
-
-        flash('Produto adicionado com Sucesso!')->success();
-        return redirect()->route('admin.products.index');
-    }
-
-    /**
-     * Update SKU amount
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function remove(Request $request)
-    {
-        $data = $request->all();
-        $sku = \App\Models\Sku::updateAmount($data);
-
-        flash('Produto adicionado com Sucesso!')->success();
-        return redirect()->route('admin.products.index');
-    }
 
 
     /**
@@ -94,11 +58,18 @@ class ProductController extends Controller
 
         $product = Product::create($data);
         $product->categories()->sync($data['categories']);
-        $product->skus()->create([
+        $skuId = $product->skus()->create([
             'product_id' => $product->id,
             'sku' => $product->id . '-' . $product->name,
             'price' => $data['price'],
             'stock' => $data['stock'],
+        ])->id;
+
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $skuId,
+            'action' => 'Criação inicial do Produto com SKU',
+            'quantity' => $data['stock'],
+            'trigger' => 'Site',
         ]);
 
         flash('Produto Criado com Sucesso');        
@@ -144,11 +115,29 @@ class ProductController extends Controller
         $product = $this->product->find($id);
         $product->update($data);
         $product->categories()->sync($data['categories']);
+
+        $sku = \App\Models\Sku::find($product->skus->id);
+        $quantity = 0;
+        if( $sku->stock >= $data['stock'] ){
+            $quantity = ($sku->stock - $data['stock']) * -1;
+            $action = 'Retirada por edição  manual do Produto';
+        } else {
+            $quantity = $data['stock'] - $sku->stock;
+            $action = 'Entrada por edição  manual do Produto';
+        }
+
         $product->skus()->update([
             'product_id' => $product->id,
             'sku' => $product->id . '-' . $product->name,
             'price' => $data['price'],
             'stock' => $data['stock'],
+        ]);
+
+        $history = \App\Models\ProductHistory::create([
+            'sku_id' => $product->skus->id,
+            'action' => $action,
+            'quantity' => $quantity,
+            'trigger' => 'Site',
         ]);
 
         flash('Produto Atualizado com Sucesso!')->success();
@@ -163,11 +152,18 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = $this->product->find($id);
-        $product->categories()->detach();
-        $product->delete();
+        $product = $this->product->with('skus')->find($id);
+        $sku = $product->skus->sku;
+        $cascade = Product::deleteCascade($sku);
 
-        flash('Produto Removido com Sucesso!')->success();
-        return redirect()->route('admin.products.index');
-    }
+       if($cascade == 'deletar') {
+            $product->categories()->detach();
+            $product->delete();
+            flash('Produto Removido com Sucesso!')->success();
+            return redirect()->route('admin.products.index');
+        } else {
+            flash($cascade)->warning();
+            return redirect()->route('admin.products.index');
+        }    
+    } 
 }
