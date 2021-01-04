@@ -17,16 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/products', 'Api\ProductController@apindex');
-
-
-
-Route::group(['middleware' => ['auth:api']], function (){
-
-        // Route::post('/baixar-produtos', 'Admin\SkuController@deduct')->name('deduct');
-        // Route::post('/adicionar-produtos', 'Admin\SkuController@add')->name('add');
-        
-});
 
 Route::post('login', 'Api\JwtAuthController@login');
 Route::post('register', 'Api\JwtAuthController@register');

@@ -31,6 +31,9 @@
                 <li class="nav-item @if(request()->is('admin/orders*')) active @endif">
                     <a class="nav-link" href="{{route('admin.orders.index')}}">Pedidos</a>
                 </li>
+                <li class="nav-item @if(request()->is('admin/reports*')) active @endif">
+                    <a class="nav-link" href="{{route('admin.reports.index')}}">Relatórios</a>
+                </li>
                 <li class="nav-item @if(request()->is('admin/categories*')) active @endif">
                     <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
                 </li>

@@ -35,6 +35,10 @@ Route::group(['middleware' => ['auth']], function (){
             Route::get('/{order}/populate', 'OrderController@additems')->name('populate');
         });
 
+        Route::prefix('reports')->name('reports.')->group(function(){
+            Route::get('/', 'ReportController@index')->name('index');
+        });
+
         Route::prefix('items')->name('items.')->group(function(){
             Route::post('/store', 'ItemController@store')->name('store');
         });
