@@ -3,6 +3,16 @@
 
 ##### Para instalar o projeto você vai precisar do [Composer](https://getcomposer.org/download/), o Laravel Installer e uma base de dados MySQL
 
+
+##### Com o composer instalado: 
+
+```
+composer global require laravel/installer
+
+git clone https://github.com/FernandoFrichenbruder/AppMax.git
+
+cd appmax
+```
 ### Crie uma base de dados, renomeie o arquivo .env.example na raiz do projeto para .env e edite a conexão com o DB
 ```
 DB_CONNECTION=mysql
@@ -13,22 +23,14 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-##### Com o composer instalado: 
-
+### Rode o Composer, gere a chave do Laravel e rode o npm
 ```
-composer global require laravel/installer
-
-git clone https://github.com/FernandoFrichenbruder/AppMax.git
-
-cd appmax
-
 composer install
 
 php artisan key:generate
 
-npm run dev
+npm install
 ```
-
 
 ### Com a base de dados conectada corretamente, rode as migrations e seeders
 ```
@@ -49,7 +51,7 @@ php artisan serve
 ### Após logado você será redirecionado para a tela de Produtos e poderá navegar pelo sistema.
 
 
-#API
+# API
 ### A API está protegida por autenticação, necessidando logar pelo endpoint **http://127.0.0.1:8000/api/login**
 ### Este endpoint irá retornar o token de autenticação necessário para acessar os outros dois endpoints da aplicação
 - **http://127.0.0.1:8000/api/baixar-produtos**
