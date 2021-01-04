@@ -22,7 +22,6 @@
                 <td>{{$order->active}}</td>
                 <td class="actions">
                     <div class="btn-group">
-                        <a href="{{route('admin.orders.show', ['order' => $order->id])}}" class="btn btn-sm btn-primary">VER</a>
                         <a href="{{route('admin.orders.populate', ['order' => $order->id])}}" class="btn btn-sm btn-primary">EDITAR</a>
                     </div>
                 </td>
